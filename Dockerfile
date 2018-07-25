@@ -4,7 +4,7 @@ RUN apt-get update && \
   apt-get install -y curl && \
   apt-get clean
 
-ARG version=1.17.1
+ARG version=\$latest
 
 RUN curl -Lo /usr/bin/jfrog https://api.bintray.com/content/jfrog/jfrog-cli-go/$version/jfrog-cli-linux-amd64/jfrog?bt_package=jfrog-cli-linux-amd64
 
