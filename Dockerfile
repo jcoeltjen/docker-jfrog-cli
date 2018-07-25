@@ -1,10 +1,13 @@
-FROM alpine:3.8
+FROM ubuntu:18.04
 
-RUN apk add --no-cache curl ca-certificates && update-ca-certificates
+RUN apt-get update && \
+  apt-get install -y curl && \
+  apt-get clean
 
-RUN curl -o /usr/bin/jfrog https://bintray.com/jfrog/jfrog-cli-go/download_file?file_path=1.17.1%2Fjfrog-cli-linux-amd64%2Fjfrog
+ARG version=1.17.1
+
+RUN curl -Lo /usr/bin/jfrog https://api.bintray.com/content/jfrog/jfrog-cli-go/$version/jfrog-cli-linux-amd64/jfrog?bt_package=jfrog-cli-linux-amd64
 
 RUN chmod +x /usr/bin/jfrog
 
-ENTRYPOINT /usr/bin/jfrog
-
+ENTRYPOINT ["/usr/bin/jfrog"]
